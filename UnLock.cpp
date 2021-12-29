@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 void PrintIntroduction(int Difficulty)
 {
@@ -11,10 +12,10 @@ bool PlayGame(int Difficulty)
 {
     PrintIntroduction(Difficulty);
     
-    //Declare 3 number code
-    const int CodeA = 4;
-    const int CodeB = 8;
-    const int CodeC = 6;
+    //Generating Random Numbbers using time
+    const int CodeA = (rand() % Difficulty) + Difficulty;
+    const int CodeB = (rand() % Difficulty) + Difficulty;
+    const int CodeC = (rand() % Difficulty) + Difficulty;
 
     const int CodeSum = CodeA + CodeB + CodeC;
     const int CodeProduct = CodeA * CodeB * CodeC;
@@ -34,20 +35,21 @@ bool PlayGame(int Difficulty)
     // Check if the players guess is correct
     if (GuessSum == CodeSum && GuessProduct == CodeProduct)
     {
-        std::cout << "You Won.\n";
+        std::cout << "Well Done! You got a piece of gold! Keep going!\n";
         return true;
     }
     else
     {   
-        std::cout << "You Lose.\n";
+        std::cout << "You entered the wrong code! Be Careful! Try Again!\n";
         return false;
     }
 }
 
 int main()
 {
+    srand(time(NULL)); // Create a new random seed based on the time of the day
     int LevelDifficulty = 1;
-    const int MaxDifficulty = 15;
+    const int MaxDifficulty = 5;
     while (LevelDifficulty <= MaxDifficulty) // Loop game until all levels are completed
     {
         bool bLevelComplete = PlayGame(LevelDifficulty);
@@ -57,8 +59,8 @@ int main()
         if (bLevelComplete)
         {
             ++LevelDifficulty;
-        }
-        
+        }   
     }
+    std::cout << "\n Great work! You got all the Valuables! Now get out of there!";
     return 0;
 }
