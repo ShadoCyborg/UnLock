@@ -1,15 +1,15 @@
 #include <iostream>
 
-void PrintIntroduction()
+void PrintIntroduction(int Difficulty)
 {
     // Print welcom Messages to the terminal
-    std::cout << "\n\nYou are a thief breaking into a secure Locker...\n";
-    std::cout << "Enter the correct code to continue...\n\n";
+    std::cout << "\n\nYou are a thief breaking into a level "<< Difficulty;
+    std::cout << " secure Locker...\nEnter the correct code to continue...\n\n";
 }
 
-void PlayGame()
+bool PlayGame(int Difficulty)
 {
-    PrintIntroduction();
+    PrintIntroduction(Difficulty);
     
     //Declare 3 number code
     const int CodeA = 4;
@@ -35,21 +35,29 @@ void PlayGame()
     if (GuessSum == CodeSum && GuessProduct == CodeProduct)
     {
         std::cout << "You Won.\n";
+        return true;
     }
     else
     {   
         std::cout << "You Lose.\n";
+        return false;
     }
 }
 
 int main()
 {
+    int LevelDifficulty = 1;
     while(true)
     {
-        bool bLevelComplete;
-        PlayGame();
+        bool bLevelComplete = PlayGame(LevelDifficulty);
         std::cin.clear(); // Clears any errors
         std::cin.ignore(); // Discards the buffer
+
+        if (bLevelComplete)
+        {
+            ++LevelDifficulty;
+        }
+        
     }
     return 0;
 }
